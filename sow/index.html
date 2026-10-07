@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Análisis crítico de cuatro sitios web premiados siguiendo la metodología ATELIER.">
+  <title>Web Atelier — Análisis crítico de sitios premiados</title>
+  <style>
+    :root{
+      --bg:#09090b; --surface:#111116; --surface2:#18181f; --text:#f5f5f7;
+      --muted:#a1a1aa; --line:#2a2a32; --accent:#a78bfa; --accent2:#67e8f9;
+      --good:#86efac; --warn:#fde68a; --bad:#fca5a5;
+      --max:1180px; --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:
+      radial-gradient(circle at 80% 0%,rgba(167,139,250,.15),transparent 28rem),
+      radial-gradient(circle at 0% 30%,rgba(103,232,249,.08),transparent 24rem),
+      var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+    a{color:inherit}
+    .wrap{width:min(calc(100% - 40px),var(--max));margin:auto}
+    header{min-height:92vh;display:grid;align-items:center;padding:80px 0 60px}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:rgba(255,255,255,.03);padding:8px 12px;border-radius:999px;color:#d4d4d8;font-size:.84rem}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--accent2);box-shadow:0 0 18px var(--accent2)}
+    h1{font-size:clamp(3.1rem,8vw,7.2rem);line-height:.94;letter-spacing:-.065em;margin:24px 0;max-width:950px}
+    .lead{font-size:clamp(1.05rem,2vw,1.35rem);max-width:760px;color:#d4d4d8}
+    .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+    .pill{border:1px solid var(--line);padding:9px 13px;border-radius:999px;color:var(--muted);font-size:.88rem}
+    nav{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(9,9,11,.84);backdrop-filter:blur(18px)}
+    nav .wrap{display:flex;gap:20px;overflow:auto;padding:13px 0}
+    nav a{text-decoration:none;color:var(--muted);font-size:.9rem;white-space:nowrap}
+    nav a:hover{color:var(--text)}
+    section{padding:90px 0;border-bottom:1px solid var(--line)}
+    .section-head{display:grid;grid-template-columns:1fr 2fr;gap:40px;margin-bottom:42px}
+    .kicker{color:var(--accent2);font-weight:700;text-transform:uppercase;letter-spacing:.13em;font-size:.76rem}
+    h2{font-size:clamp(2rem,4vw,3.8rem);line-height:1;letter-spacing:-.045em;margin:8px 0}
+    h3{font-size:1.35rem;line-height:1.2;margin:0 0 10px}
+    p{margin:0 0 14px;color:#d4d4d8}
+    .intro{font-size:1.08rem;color:#c4c4cc}
+    .method{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+    .method div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+    .method b{display:block;margin-bottom:6px}
+    .method span{font-size:.9rem;color:var(--muted)}
+    .site{padding:44px 0}
+    .site + .site{border-top:1px solid var(--line)}
+    .site-top{display:flex;justify-content:space-between;gap:25px;align-items:flex-start;margin-bottom:25px}
+    .site-number{font-size:.8rem;color:var(--accent2);letter-spacing:.15em}
+    .site-title{font-size:clamp(2rem,4vw,4rem);letter-spacing:-.045em;line-height:1;margin:6px 0 10px}
+    .site-sub{color:var(--muted);max-width:680px}
+    .award{display:inline-block;border:1px solid rgba(167,139,250,.4);background:rgba(167,139,250,.1);color:#ddd6fe;padding:8px 12px;border-radius:999px;font-size:.82rem;white-space:nowrap}.visit{display:inline-flex;align-items:center;gap:7px;margin-top:10px;border:1px solid var(--line);background:var(--surface2);color:var(--text);padding:9px 13px;border-radius:999px;text-decoration:none;font-size:.82rem;transition:.2s}.visit:hover{border-color:var(--accent);transform:translateY(-1px)}
+    .site-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+    .visual{min-height:280px;border-radius:var(--radius);border:1px solid var(--line);padding:26px;overflow:hidden;position:relative;background:linear-gradient(135deg,#17171f,#0f0f13)}
+    .visual::after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-90px;bottom:-110px;background:radial-gradient(circle,rgba(167,139,250,.5),transparent 65%)}
+    .visual .big{font-size:clamp(3rem,7vw,7rem);font-weight:800;letter-spacing:-.08em;line-height:.8;position:relative;z-index:1}
+    .visual .small{position:absolute;left:26px;bottom:24px;color:#d4d4d8;z-index:2}
+    .v2{background:linear-gradient(135deg,#f2f2f0,#bcbcbc);color:#111}
+    .v2::after{background:radial-gradient(circle,rgba(255,255,255,.8),transparent 65%)}
+    .v2 .small{color:#222}
+    .v3{background:linear-gradient(135deg,#0b2030,#163b4c 45%,#081116)}
+    .v4{background:linear-gradient(135deg,#030303,#191919);border-color:#343434}
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+    .card p:last-child{margin-bottom:0}
+    .tag{display:inline-block;font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:12px}
+    .rating{display:flex;gap:8px;align-items:center;margin-top:15px}
+    .bar{height:6px;background:#27272f;border-radius:99px;flex:1;overflow:hidden}
+    .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px}
+    .score{font-weight:800;min-width:42px;text-align:right}
+    .proscons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+    .proscons > div{padding:16px;border-radius:15px;border:1px solid var(--line)}
+    .pros{border-color:rgba(134,239,172,.2)!important}
+    .cons{border-color:rgba(252,165,165,.2)!important}
+    .pros strong{color:var(--good)}
+    .cons strong{color:var(--bad)}
+    .matrix{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;min-width:760px;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+    th,td{padding:16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+    th{color:#e4e4e7;background:#15151b;font-size:.85rem}
+    td{color:#c8c8cf}
+    tr:last-child td{border-bottom:0}
+    .conclusion{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .quote{font-size:1.55rem;line-height:1.25;padding:30px;border-left:3px solid var(--accent);background:var(--surface)}
+    .sources a{color:#c4b5fd}
+    footer{padding:45px 0;color:var(--muted);font-size:.88rem}
+    @media(max-width:800px){
+      .wrap{width:min(calc(100% - 28px),var(--max))}
+      header{min-height:auto;padding:80px 0}
+      .section-head,.site-grid,.conclusion{grid-template-columns:1fr}
+      .method{grid-template-columns:1fr 1fr}
+      .site-top{flex-direction:column}
+    }
+    @media(max-width:520px){
+      .method,.cards,.proscons{grid-template-columns:1fr}
+      section{padding:65px 0}
+    }
+  </style>
+</head>
+<body>
+  <header id="inicio">
+    <div class="wrap">
+      <span class="eyebrow"><span class="dot"></span> FRONT END 1 · WEB ATELIER</span>
+      <h1>Análisis crítico de sitios web premiados.</h1>
+      <p class="lead">
+        Estudio comparativo de cuatro experiencias digitales reconocidas por su diseño y desarrollo.
+        El análisis combina estructura, usabilidad, lenguaje visual y rendimiento, siguiendo el enfoque
+        de exploración, reflexión, conceptualización, producción y exposición de la metodología ATELIER.
+      </p>
+      <div class="meta">
+        <span class="pill">4 sitios analizados</span>
+        <span class="pill">Awwwards / FWA / CSS Design Awards</span>
+        <span class="pill">Análisis cualitativo</span>
+        <span class="pill">UDIT · 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="wrap">
+      <a href="#metodologia">Metodología</a>
+      <a href="#sitios">Sitios</a>
+      <a href="#comparativa">Comparativa</a>
+      <a href="#aprendizajes">Aprendizajes</a>
+      <a href="#fuentes">Fuentes</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="metodologia">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="kicker">01 · Método</span>
+            <h2>Mirar antes de construir.</h2>
+          </div>
+          <p class="intro">
+            La metodología ATELIER propone aprender desde la práctica y cerrar el ciclo con reflexión.
+            Para esta práctica se aplica el mismo principio al análisis de interfaces: observar la experiencia,
+            formular una lectura crítica y convertirla en criterios que puedan reutilizarse en futuros proyectos.
+          </p>
+        </div>
+        <div class="method">
+          <div><b>Exploración</b><span>Recorrido del sitio y primera impresión.</span></div>
+          <div><b>Reflexión</b><span>Qué funciona, qué fricciona y por qué.</span></div>
+          <div><b>Marco</b><span>Estructura, UX, visuales y rendimiento.</span></div>
+          <div><b>Producción</b><span>Extraer patrones aplicables a un proyecto propio.</span></div>
+          <div><b>Exposición</b><span>Comunicar hallazgos de forma clara y web.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sitios">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="kicker">02 · Casos</span>
+            <h2>Cuatro formas de hacer memorable una web.</h2>
+          </div>
+          <p class="intro">
+            No se trata de decidir qué sitio es "más bonito", sino de identificar la relación entre intención,
+            contenido, interacción y tecnología.
+          </p>
+        </div>
+
+        <article class="site">
+          <div class="site-top">
+            <div>
+              <div class="site-number">01 / BRUNO SIMON</div>
+              <h3 class="site-title">Bruno Simon Portfolio</h3>
+              <p class="site-sub">Un portfolio convertido en espacio interactivo: el usuario explora una escena 3D en lugar de recorrer una página convencional.</p>
+            </div>
+            <span class="award">Awwwards · Site of the Year 2019 · Developer of the Year</span><br><a class="visit" href="https://bruno-simon.com/" target="_blank" rel="noopener">Visitar sitio analizado ↗</a>
+          </div>
+          <div class="site-grid">
+            <div class="visual">
+              <div class="big">3D<br>PLAY</div>
+              <div class="small">La navegación se transforma en interacción.</div>
+            </div>
+            <div class="cards">
+              <div class="card"><span class="tag">Estructura</span><p>La estructura no se basa en una larga secuencia de bloques. El espacio 3D funciona como un índice interactivo y cada elemento del escenario representa contenido del portfolio.</p></div>
+              <div class="card"><span class="tag">Usabilidad</span><p>La propuesta es muy memorable, pero introduce una curva de aprendizaje: el usuario debe entender cómo moverse y dónde está la información. Una alternativa accesible debe existir para quien no pueda o quiera usar la interacción 3D.</p></div>
+              <div class="card"><span class="tag">Visual</span><p>La identidad es coherente de principio a fin. La estética de videojuego convierte la presentación profesional en una experiencia personal y reconocible.</p></div>
+              <div class="card"><span class="tag">Rendimiento</span><p>WebGL y una escena interactiva pueden exigir bastante GPU y ancho de banda. Es un caso donde la optimización y la posibilidad de degradación progresiva son parte del diseño.</p></div>
+            </div>
+          </div>
+          <div class="proscons">
+            <div class="pros"><strong>Fortaleza principal</strong><p>La interacción no es un adorno: es el concepto central del portfolio.</p></div>
+            <div class="cons"><strong>Riesgo principal</strong><p>La espectacularidad puede competir con la encontrabilidad, accesibilidad y rendimiento.</p></div>
+          </div>
+        </article>
+
+        <article class="site">
+          <div class="site-top">
+            <div>
+              <div class="site-number">02 / CUBERTO</div>
+              <h3 class="site-title">Cuberto</h3>
+              <p class="site-sub">Un sitio de agencia que utiliza tipografía, movimiento y transiciones para construir una identidad digital muy reconocible.</p>
+            </div>
+            <span class="award">Awwwards · Site of the Day · Developer Award</span><br><a class="visit" href="https://cuberto.com/" target="_blank" rel="noopener">Visitar sitio analizado ↗</a>
+          </div>
+          <div class="site-grid">
+            <div class="visual v2">
+              <div class="big">TYPE<br>+ MOTION</div>
+              <div class="small">Jerarquía visual basada en escala y movimiento.</div>
+            </div>
+            <div class="cards">
+              <div class="card"><span class="tag">Estructura</span><p>La portada funciona como escaparate y los proyectos actúan como unidades narrativas. La jerarquía se apoya en títulos grandes, imágenes y llamadas a la acción claras.</p></div>
+              <div class="card"><span class="tag">Usabilidad</span><p>Las transiciones ayudan a dar continuidad entre contenidos. El reto aparece cuando el movimiento ralentiza una tarea sencilla o cuando el usuario no identifica rápidamente qué elemento es interactivo.</p></div>
+              <div class="card"><span class="tag">Visual</span><p>El lenguaje es minimalista pero expresivo: grandes masas tipográficas, espacios amplios, imágenes y animación. La consistencia visual refuerza la marca.</p></div>
+              <div class="card"><span class="tag">Rendimiento</span><p>El uso intensivo de animaciones requiere cuidar el peso de imágenes, el número de efectos y el comportamiento en móvil. El movimiento debe reducirse cuando el dispositivo o las preferencias del usuario lo requieran.</p></div>
+            </div>
+          </div>
+          <div class="proscons">
+            <div class="pros"><strong>Fortaleza principal</strong><p>La identidad visual y la interacción están integradas en una misma dirección artística.</p></div>
+            <div class="cons"><strong>Riesgo principal</strong><p>Un exceso de animación puede aumentar la carga cognitiva y ocultar la estructura real del contenido.</p></div>
+          </div>
+        </article>
+
+        <article class="site">
+          <div class="site-top">
+            <div>
+              <div class="site-number">03 / LOCOMOTIVE</div>
+              <h3 class="site-title">Populous</h3>
+              <p class="site-sub">Un caso de estudio de dirección de arte digital aplicado a una marca global: contenido visual, navegación editorial y movimiento trabajan juntos.</p>
+            </div>
+            <span class="award">Awwwards · Site of the Day · Developer Award · 2024</span><br><a class="visit" href="https://letterstoevan.com/" target="_blank" rel="noopener">Visitar sitio analizado ↗</a><br><a class="visit" href="https://populous.com/" target="_blank" rel="noopener">Visitar sitio analizado ↗</a>
+          </div>
+          <div class="site-grid">
+            <div class="visual v3">
+              <div class="big">SPACE<br>& STORY</div>
+              <div class="small">La arquitectura de contenido guía el relato.</div>
+            </div>
+            <div class="cards">
+              <div class="card"><span class="tag">Estructura</span><p>El contenido se organiza alrededor de proyectos y categorías. La navegación permite pasar de una visión general a casos concretos sin perder el contexto de marca.</p></div>
+              <div class="card"><span class="tag">Usabilidad</span><p>El diseño editorial favorece la exploración. Los elementos de navegación tienen que mantener suficiente contraste y previsibilidad para que el impacto visual no perjudique la orientación.</p></div>
+              <div class="card"><span class="tag">Visual</span><p>La fotografía y la composición son protagonistas. El espacio negativo funciona como herramienta para separar proyectos y establecer ritmo.</p></div>
+              <div class="card"><span class="tag">Rendimiento</span><p>Los portfolios visuales dependen mucho de imágenes y vídeo. El enfoque recomendable es servir tamaños adecuados, cargar contenido bajo demanda y evitar descargar recursos que todavía no son visibles.</p></div>
+            </div>
+          </div>
+          <div class="proscons">
+            <div class="pros"><strong>Fortaleza principal</strong><p>Convierte un catálogo de proyectos en una experiencia editorial con ritmo.</p></div>
+            <div class="cons"><strong>Riesgo principal</strong><p>El peso de contenido audiovisual puede afectar tiempos de carga si no existe una estrategia de carga progresiva.</p></div>
+          </div>
+        </article>
+
+        <article class="site">
+          <div class="site-top">
+            <div>
+              <div class="site-number">04 / ACTIVE THEORY</div>
+              <h3 class="site-title">UNANSWERED</h3>
+              <p class="site-sub">Una experiencia de exposición digital centrada en una historia real. El diseño utiliza interacción y atmósfera para colocar el contenido en primer plano.</p>
+            </div>
+            <span class="award">Awwwards · Site of the Day · Developer Award · 2024</span>
+          </div>
+          <div class="site-grid">
+            <div class="visual v4">
+              <div class="big">STORY<br>FIRST</div>
+              <div class="small">La interfaz crea atmósfera antes que ornamentación.</div>
+            </div>
+            <div class="cards">
+              <div class="card"><span class="tag">Estructura</span><p>La experiencia se plantea como un recorrido narrativo. El usuario recibe información por capas, lo que permite controlar el ritmo de lectura y generar tensión.</p></div>
+              <div class="card"><span class="tag">Usabilidad</span><p>La navegación narrativa puede ser efectiva cuando cada acción tiene sentido. Deben existir señales claras de progreso, controles comprensibles y alternativas para usuarios que prefieran una lectura directa.</p></div>
+              <div class="card"><span class="tag">Visual</span><p>La dirección artística utiliza contraste, oscuridad, tipografía y movimiento para establecer un tono serio. Aquí la estética tiene una función narrativa, no solamente decorativa.</p></div>
+              <div class="card"><span class="tag">Rendimiento</span><p>Las experiencias inmersivas pueden combinar vídeo, WebGL y animación. La estrategia debe priorizar el contenido esencial, comprimir recursos y ofrecer una experiencia razonable en dispositivos modestos.</p></div>
+            </div>
+          </div>
+          <div class="proscons">
+            <div class="pros"><strong>Fortaleza principal</strong><p>La interacción está subordinada al relato y aumenta la implicación del usuario.</p></div>
+            <div class="cons"><strong>Riesgo principal</strong><p>Una experiencia demasiado lineal puede reducir la sensación de control del usuario.</p></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="comparativa">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="kicker">03 · Síntesis</span>
+            <h2>Comparar para aprender.</h2>
+          </div>
+          <p class="intro">
+            La comparación muestra un patrón común: los sitios premiados no dependen únicamente de una estética
+            llamativa. Destacan porque la tecnología refuerza una intención concreta.
+          </p>
+        </div>
+        <div class="matrix">
+          <table>
+            <thead>
+              <tr><th>Criterio</th><th>Bruno Simon</th><th>Cuberto</th><th>Populous</th><th>UNANSWERED</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Estructura</b></td><td>Espacio 3D como índice</td><td>Portfolio editorial</td><td>Casos + categorías</td><td>Recorrido narrativo</td></tr>
+              <tr><td><b>Usabilidad</b></td><td>Alta novedad, menor previsibilidad</td><td>Fluida si se entiende el movimiento</td><td>Exploración guiada</td><td>Orientada al relato</td></tr>
+              <tr><td><b>Visual</b></td><td>Videojuego / 3D</td><td>Tipografía + motion</td><td>Fotografía + espacio</td><td>Atmósfera + contraste</td></tr>
+              <tr><td><b>Rendimiento</b></td><td>WebGL exigente</td><td>Animación intensiva</td><td>Media/vídeo potencialmente pesado</td><td>Multimedia / interacción</td></tr>
+              <tr><td><b>Idea clave</b></td><td>La web puede ser un mundo</td><td>La marca puede moverse</td><td>El contenido puede tener ritmo</td><td>La interacción puede contar una historia</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="aprendizajes">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="kicker">04 · Reflexión</span>
+            <h2>Qué me llevo al desarrollar.</h2>
+          </div>
+          <p class="intro">
+            El análisis crítico no consiste en copiar efectos, sino en entender qué problema resuelve cada decisión.
+          </p>
+        </div>
+        <div class="conclusion">
+          <div class="quote">"La interacción funciona mejor cuando tiene una razón de ser y no cuando existe solo para impresionar."</div>
+          <div class="card">
+            <h3>Principios aplicables a un proyecto propio</h3>
+            <p><b>1. Jerarquía antes que decoración.</b> El usuario debe saber qué es importante sin depender de animaciones.</p>
+            <p><b>2. Accesibilidad desde el principio.</b> Teclado, contraste, texto alternativo, foco visible y reducción de movimiento no son extras.</p>
+            <p><b>3. Rendimiento como parte del diseño.</b> Imágenes optimizadas, lazy loading y animaciones eficientes mejoran la experiencia.</p>
+            <p><b>4. Tecnología al servicio del concepto.</b> WebGL, vídeo o motion tienen valor cuando aportan significado.</p>
+            <p><b>5. Dar control al usuario.</b> Una experiencia innovadora sigue necesitando navegación comprensible y estados previsibles.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fuentes">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="kicker">05 · Referencias</span>
+            <h2>Fuentes consultadas.</h2>
+          </div>
+          <p class="intro">
+            Las páginas de premios se utilizan para verificar el reconocimiento de los proyectos. Las observaciones
+            de diseño corresponden al análisis crítico realizado para esta práctica.
+          </p>
+        </div>
+        <div class="card sources">
+          <p><b>Bruno Simon Portfolio</b> — Awwwards, reconocimiento Site of the Year / Developer of the Year 2019.</p>
+          <p><a href="https://www.awwwards.com/websites/%23993333/?page=61" target="_blank" rel="noopener">Awwwards — registro del proyecto Bruno Simon Portfolio</a></p>
+          <p><b>Cuberto</b> — Awwwards, Site of the Day y Developer Award, 22 junio 2018.</p>
+          <p><a href="https://www.awwwards.com/websites/sites_of_the_day/?page=83" target="_blank" rel="noopener">Awwwards — Site of the Day</a></p>
+          <p><b>Populous</b> — Awwwards, Site of the Day y Developer Award, 20 septiembre 2024.</p>
+          <p><a href="https://www.awwwards.com/websites/%23201A39/?page=61" target="_blank" rel="noopener">Awwwards — registro del proyecto Populous</a></p>
+          <p><b>UNANSWERED</b> — Active Theory, Awwwards, Site of the Day y Developer Award, 18 septiembre 2024.</p>
+          <p><a href="https://www.awwwards.com/websites/interaction-design/?page=16" target="_blank" rel="noopener">Awwwards — Interaction Design</a></p>
+          <p><b>Marco metodológico</b> — Web Atelier UDIT, enfoque ATELIER: exploración, reflexión, marco conceptual, producción y exposición.</p>
+          <p><a href="https://github.com/ruvebal/web-atelier-udit" target="_blank" rel="noopener">Repositorio Web Atelier UDIT</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      Front End 1 · Web Atelier · Análisis crítico de diseño web · 2026
+    </div>
+  </footer>
+</body>
+</html>
